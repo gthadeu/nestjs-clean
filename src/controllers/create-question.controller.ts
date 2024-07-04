@@ -1,5 +1,7 @@
 import { Controller, Post, UseGuards } from '@nestjs/common'
+import { CurrentUser } from 'src/auth/current-user-decorator'
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
+import { UserPayload } from 'src/auth/jwt.strategy'
 
 // const authenticateBodySchema = z.object({
 //   email: z.string().email(),
@@ -14,6 +16,7 @@ export class CreateQuestionController {
   constructor() {}
 
   @Post()
-  // @UsePipes(new ZodValidationPipe(authenticateBodySchema))
-  async handle() {}
+  async handle(@CurrentUser() user: UserPayload) {
+    console.log(user)
+  }
 }
